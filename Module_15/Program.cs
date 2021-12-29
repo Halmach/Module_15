@@ -8,7 +8,7 @@ namespace Module_15
     {
         static void Main(string[] args)
         {
-            ShowUniqueLettersWithOutRepeatInResultCollectionByLINQ();
+            ShowCalculateFactorialByLINQAggregateMethods();
         }
 
         private static void SearchCommonLetters()
@@ -57,6 +57,22 @@ namespace Module_15
             var messageWithOutPunctuation = message.Except(punctuation);
 
             Console.WriteLine(messageWithOutPunctuation.ToArray());
+        }
+
+        private static void ShowCalculateFactorialByLINQAggregateMethods()
+        {
+            Console.WriteLine("Введите число для посдчета факториала:");
+
+            if (!int.TryParse(Console.ReadLine(), out int intNumber))
+            { Console.WriteLine("Неверный формат данных"); return; }
+
+            List<int> numbers = new List<int>();
+
+            for (int i = 1; i <= intNumber; i++) numbers.Add(i);
+
+            long result = numbers.Aggregate((x,y) => x * y);
+
+            Console.WriteLine($"Факториал числа {intNumber} = {result}");
         }
     }
 }
