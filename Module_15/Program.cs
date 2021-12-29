@@ -7,6 +7,11 @@ namespace Module_15
     {
         static void Main(string[] args)
         {
+            SearchCommonLetters();
+        }
+
+        private static void SearchCommonLetters()
+        {
             string firstWord = "one";
             string secondWord = "two";
 
@@ -19,3 +24,4 @@ namespace Module_15
         }
     }
 }
+ 
