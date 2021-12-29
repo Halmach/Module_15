@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Module_15
@@ -7,7 +8,7 @@ namespace Module_15
     {
         static void Main(string[] args)
         {
-            SearchCommonLetters();
+            ShowUnionWithOutRepeat();
         }
 
         private static void SearchCommonLetters()
@@ -21,6 +22,23 @@ namespace Module_15
             {
                 Console.WriteLine(elem);
             }
+        }
+
+        private static void ShowUnionWithOutRepeat()
+        {
+            var softwareManufacturers = new List<string>()
+            {
+               "Microsoft", "Apple", "Oracle"
+            };
+
+            var hardwareManufacturers = new List<string>()
+            {
+               "Apple", "Samsung", "Intel"
+            };
+
+            var itCompanies = softwareManufacturers.Union(hardwareManufacturers);
+
+            foreach (var company in itCompanies) Console.WriteLine(company);
         }
     }
 }
