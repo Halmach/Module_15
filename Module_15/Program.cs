@@ -8,7 +8,7 @@ namespace Module_15
     {
         static void Main(string[] args)
         {
-            ShowCalculateFactorialByLINQAggregateMethods();
+            ShowHowCountWorking();
         }
 
         private static void SearchCommonLetters()
@@ -73,6 +73,26 @@ namespace Module_15
             long result = numbers.Aggregate((x,y) => x * y);
 
             Console.WriteLine($"Факториал числа {intNumber} = {result}");
+        }
+
+        private static void ShowHowCountWorking()
+        {
+            var contacts = new List<Contact>()
+            {
+               new Contact() { Name = "Андрей", Phone = 79994500508 },
+               new Contact() { Name = "Сергей", Phone = 799990455 },
+               new Contact() { Name = "Иван", Phone = 79999675334 },
+               new Contact() { Name = "Игорь", Phone = 8884994 },
+               new Contact() { Name = "Анна", Phone = 665565656 },
+               new Contact() { Name = "Василий", Phone = 3434 }
+            };
+
+            var result = (from contact in contacts
+                          let phoneTemp = contact.Phone.ToString()
+                          where phoneTemp.Length != 11 || !phoneTemp.StartsWith('7')
+                          select contact).Count();
+            
+            Console.WriteLine("Количество людей с  неправильными номерами: " + result);
         }
     }
 }
