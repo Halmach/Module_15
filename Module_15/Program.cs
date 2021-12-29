@@ -8,7 +8,7 @@ namespace Module_15
     {
         static void Main(string[] args)
         {
-            ShowUnionWithOutRepeat();
+            ShowUniqueLettersWithOutRepeatInResultCollectionByLINQ();
         }
 
         private static void SearchCommonLetters()
@@ -39,6 +39,24 @@ namespace Module_15
             var itCompanies = softwareManufacturers.Union(hardwareManufacturers);
 
             foreach (var company in itCompanies) Console.WriteLine(company);
+        }
+
+        private static void ShowUniqueLettersWithOutRepeatInResultCollectionByLINQ()
+        {
+            Console.WriteLine("Введите текст:");
+            var message = Console.ReadLine();
+
+            if (string.IsNullOrEmpty(message.Trim()))
+            {
+                Console.WriteLine("Введена пустая строка");
+                return;
+            }
+
+            var punctuation = ",.;:?! ";
+
+            var messageWithOutPunctuation = message.Except(punctuation);
+
+            Console.WriteLine(messageWithOutPunctuation.ToArray());
         }
     }
 }
