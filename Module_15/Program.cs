@@ -8,7 +8,7 @@ namespace Module_15
     {
         static void Main(string[] args)
         {
-            ShowHowCountWorking();
+            ShowHowSumLINQWorking();
         }
 
         private static void SearchCommonLetters()
@@ -93,6 +93,21 @@ namespace Module_15
                           select contact).Count();
             
             Console.WriteLine("Количество людей с  неправильными номерами: " + result);
+        }
+
+        private static void ShowHowSumLINQWorking()
+        {
+            var numbers = new int[] { 1, 2, 3, 4, 5 };
+
+            var result = numbers.Sum() / numbers.Length;
+
+            Console.WriteLine(result);
+
+        }
+
+        private static void ShowHowAllAggregateMethodsWorking()
+        {
+
         }
     }
 }
