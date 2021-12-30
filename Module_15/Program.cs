@@ -8,7 +8,7 @@ namespace Module_15
     {
         static void Main(string[] args)
         {
-            ShowHowAllAggregateMethodsWorking();
+            ShowHowGroupWorking();
         }
 
         private static void SearchCommonLetters()
@@ -128,6 +128,42 @@ namespace Module_15
                 Console.WriteLine($"Наименьшее число в списке: {numCollection.Min()}");
                 Console.WriteLine($"Среднее значение в списке: {numCollection.Average()}");
                 Console.WriteLine();
+            }
+        }
+
+        private static void ShowHowGroupWorking()
+        {
+            var phoneBook = new List<Contact>();
+
+            // добавляем контакты
+            phoneBook.Add(new Contact(Name:"Игорь", Phone:79990000001, Email:"igor@example.com"));
+            phoneBook.Add(new Contact("Сергей", 79990000010, "serge@example.com"));
+            phoneBook.Add(new Contact("Анатолий", 79990000011, "anatoly@example.com"));
+            phoneBook.Add(new Contact("Валерий", 79990000012, "valera@example.com"));
+            phoneBook.Add(new Contact("Сергей", 799900000013, "serg@gmail.com"));
+            phoneBook.Add(new Contact("Иннокентий", 799900000013, "innokentii@example.com"));
+
+            var phoneBookGroup = phoneBook.GroupBy(contact => contact.Email.Split("@").Last())
+                                          .Select(g => new
+                                          {
+                                              GroupName = g.Key,
+                                              Count = g.Count(),
+                                              Contacts = g.Select(c => c)
+                                          });
+            foreach (var contactsGroup in phoneBookGroup)
+            {
+                if (contactsGroup.GroupName.Contains("example"))
+                    Console.WriteLine("Фейковые адреса:");
+                else Console.WriteLine("Реальный адреса:");
+
+                Console.WriteLine("Количество контактов:" + contactsGroup.Count);
+                foreach (var contact in contactsGroup.Contacts)
+                {
+                    Console.WriteLine($"Имя: {contact.Name}");
+                    Console.WriteLine($"Телефон: {contact.Phone}");
+                }
+                Console.WriteLine();
+
             }
         }
     }
