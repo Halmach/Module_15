@@ -8,7 +8,7 @@ namespace Module_15
     {
         static void Main(string[] args)
         {
-            ShowHowSumLINQWorking();
+            ShowHowAllAggregateMethodsWorking();
         }
 
         private static void SearchCommonLetters()
@@ -107,7 +107,28 @@ namespace Module_15
 
         private static void ShowHowAllAggregateMethodsWorking()
         {
+            List<int> numCollection = new List<int>();
+            while (true)
+            {
+                Console.WriteLine("Введите число");
+                var isNum = int.TryParse(Console.ReadLine(), out int number);
 
+                if(!isNum)
+                {
+                    Console.WriteLine("Неверный формат данных");
+                    continue;
+                }
+
+                numCollection.Add(number);
+
+                Console.WriteLine();
+                Console.WriteLine($"Количество чисел в списке: {numCollection.Count()}");
+                Console.WriteLine($"Сумма всех чисел списка: {numCollection.Sum()}");
+                Console.WriteLine($"Наибольшее число в списке: {numCollection.Max()}");
+                Console.WriteLine($"Наименьшее число в списке: {numCollection.Min()}");
+                Console.WriteLine($"Среднее значение в списке: {numCollection.Average()}");
+                Console.WriteLine();
+            }
         }
     }
 }
