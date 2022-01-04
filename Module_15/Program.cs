@@ -8,7 +8,7 @@ namespace Module_15
     {
         static void Main(string[] args)
         {
-            ShowHowGroupWorking();
+            ShowHowDelayLINQWorking();
         }
 
         private static void SearchCommonLetters()
@@ -166,6 +166,104 @@ namespace Module_15
 
             }
         }
-    }
+
+        private static void ShowHowJoinWorking() // Задание 15.4.1
+        {
+            var departments = new List<Department>()
+            {
+               new Department() {Id = 1, Name = "Программирование"},
+               new Department() {Id = 2, Name = "Продажи"}
+            };
+
+            var employees = new List<Employee>()
+            {
+               new Employee() { DepartmentId = 1, Name = "Инна", Id = 1},
+               new Employee() { DepartmentId = 1, Name = "Андрей", Id = 2},
+               new Employee() { DepartmentId = 2, Name = "Виктор ", Id = 3},
+               new Employee() { DepartmentId = 3, Name = "Альберт ", Id = 4},
+            };
+
+            var result = from employee in employees
+                         join d in departments on employee.DepartmentId equals d.Id
+                         select new
+                         {
+                             Id = employee.Id,
+                             Name = employee.Name,
+                             Department = d.Name
+                         };
+
+            Console.WriteLine("Список сотрудников");
+            foreach (var emp in result)
+            {
+                Console.WriteLine($"{emp.Id} -- {emp.Name} -- {emp.Department}");
+            }
+        }
+
+        private static void ShowGroupJoinWorking() // Задание 15.4.2
+        {
+            var departments = new List<Department>()
+            {
+                new Department() {Id = 1, Name = "Программирование"},
+                new Department() {Id = 2, Name = "Продажи"}
+            };
+
+            var employees = new List<Employee>()
+            {
+                new Employee() { DepartmentId = 1, Name = "Инна", Id = 1},
+                new Employee() { DepartmentId = 1, Name = "Андрей", Id = 2},
+                new Employee() { DepartmentId = 2, Name = "Виктор ", Id = 3},
+                new Employee() { DepartmentId = 3, Name = "Альберт ", Id = 4},
+            };
+
+            var result = departments.GroupJoin(
+                employees,
+                d => d.Id,
+                e => e.DepartmentId,
+                (d, em) => new
+                {
+                    Emp = em.Select(e => e),
+                    Dep = d.Name
+                });
+
+            foreach (var department in result)
+            {
+                Console.WriteLine(department.Dep + ":");
+
+                foreach (var em  in department.Emp)
+                {
+                    Console.WriteLine($"{em.Id} -- {em.Name}");
+                }
+
+                Console.WriteLine();
+            }
+        }
+
+        private static void ShowHowDelayLINQWorking() // Задание 15.5.4
+        {
+            var contacts = new List<Contact>()
+            {
+               new Contact() { Name = "Андрей", Phone = 79994500508 },
+               new Contact() { Name = "Сергей", Phone = 799990455 },
+               new Contact() { Name = "Иван", Phone = 79999675334 },
+               new Contact() { Name = "Игорь", Phone = 8884994 },
+               new Contact() { Name = "Анна", Phone = 665565656 },
+               new Contact() { Name = "Василий", Phone = 3434 }
+            };
+
+            var result = (from contact in contacts
+                          let phoneTemp = contact.Phone.ToString()
+                          where phoneTemp.Length != 11 || !phoneTemp.StartsWith('7')
+                          select contact).ToArray();
+
+            contacts.Add(new Contact() { Name = "Руслан", Phone = 4500508 });
+
+            foreach (var emp in result)
+            {
+                Console.WriteLine($" {emp.Name}");
+            }
+
+            
+        }
+    } 
 }
  
